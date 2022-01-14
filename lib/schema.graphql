@@ -1,0 +1,72 @@
+"------base------"
+interface Person {
+  _id: ID!
+  name: String!
+  email: String!
+}
+
+union GlobalSearch = Course | Student | Monitor
+
+"------courses------"
+type Course {
+  _id: ID!
+  title: String!
+  teacher: String!
+  description: String
+  topic: String!
+  students: [Student]
+  level: Level
+}
+
+input CourseInput {
+  title: String!
+  teacher: String!
+  description: String
+  topic: String!
+  level: Level
+}
+
+enum Level {
+  beginner
+  intermediate
+  advanced
+}
+
+type Monitor implements Person {
+  _id: ID!
+  name: String!
+  email: String!
+  phone: String!
+}
+
+"------students------"
+type Student implements Person {
+  _id: ID!
+  name: String!
+  email: String!
+  avatar: String
+}
+
+input PersonInput {
+  name: String!
+  email: String!
+  phone: String
+  avatar: String
+}
+
+"------operations------"
+type Query {
+  getCourses: [Course]
+  getCourse(id: ID!): Course
+  getPersons: [Person]
+  getPerson(id: ID!): Person
+  globalSearch(value: String!): [GlobalSearch]
+}
+
+type Mutation {
+  createCourse(input: CourseInput!): Course
+  updateCourse(id: ID!, input: CourseInput!): Course
+  createCourseWithStudent(courseId: ID!, studentId: ID!): Course
+  createPerson(input: PersonInput!): Person
+  updatePerson(id: ID!, input: PersonInput!): Person
+}
