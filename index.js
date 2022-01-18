@@ -1,7 +1,7 @@
 "use strict";
 
 require("dotenv").config();
-const { graphqlHTTP } = require("express-graphql");
+const { ApolloServer } = require("apollo-server");
 const { makeExecutableSchema } = require("@graphql-tools/schema");
 
 const express = require("express");
@@ -12,9 +12,6 @@ const { join } = require("path");
 const resolvers = require("./lib/resolvers");
 
 const app = express();
-const port = process.env.PORT;
-const ENV = process.env.ENVIROMENT || "";
-const isDev = ENV.trim() !== "production";
 
 const typeDefs = readFileSync(
   join(__dirname, "lib", "schema.graphql"),
@@ -24,13 +21,8 @@ const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 app.use(cors());
 
-app.use(
-  "/graphql",
-  graphqlHTTP({
-    schema: schema,
-    rootValue: resolvers,
-    graphiql: isDev,
-  })
-);
+const server = new ApolloServer({ typeDefs, resolvers });
 
-app.listen(port);
+server.listen().then(({ url }) => {
+  console.log(`🚀  Server ready at ${url}`);
+});
