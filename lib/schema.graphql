@@ -56,11 +56,10 @@ input PersonInput {
 
 "------operations------"
 type Query {
-  getCourses: [Course]
+  getCourses(value: String): [Course]
   getCourse(id: ID!): Course
   getPersons: [Person]
   getPerson(id: ID!): Person
-  globalSearch(value: String!): [GlobalSearch]
 }
 
 type Mutation {
