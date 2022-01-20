@@ -1,4 +1,4 @@
 # node-graphql
 
 ## Frontend code
-https://github.com/favioamarillapy/node-graphql
+https://github.com/favioamarillapy/react-vite-graphql
