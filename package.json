@@ -5,10 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js",
-    "lint": "standard",
-    "lint-fix": "standard --fix",
-    "start": "SET ENVIROMENT=production & node index"
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
